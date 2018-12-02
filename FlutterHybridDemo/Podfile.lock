@@ -1,0 +1,36 @@
+PODS:
+  - FDFullscreenPopGesture (1.1)
+  - FlutterModule (0.1.0):
+    - MGJRouter (~> 0.10.0)
+  - Masonry (1.1.0)
+  - MGJRouter (0.10.0)
+
+DEPENDENCIES:
+  - FDFullscreenPopGesture (~> 1.1)
+  - FlutterModule (from `https://github.com/hhtczengjing/flutter_module_example.git`)
+  - Masonry (~> 1.1.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - FDFullscreenPopGesture
+    - Masonry
+    - MGJRouter
+
+EXTERNAL SOURCES:
+  FlutterModule:
+    :git: https://github.com/hhtczengjing/flutter_module_example.git
+
+CHECKOUT OPTIONS:
+  FlutterModule:
+    :commit: d04b3ab3577fa3404b59dc4cc3dc816300caff78
+    :git: https://github.com/hhtczengjing/flutter_module_example.git
+
+SPEC CHECKSUMS:
+  FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
+  FlutterModule: 40ae3cd8acb5dad0fc178f66a38dbd901e3852ee
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MGJRouter: 15d94541eb2cc81eff7d577337288feb7ae9575f
+
+PODFILE CHECKSUM: 6db12130c16990cb37c3a93d910bb8e5bfd6ae47
+
+COCOAPODS: 1.5.3

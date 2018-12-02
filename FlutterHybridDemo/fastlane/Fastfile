@@ -1,0 +1,54 @@
+fastlane_version "2.99.1"
+default_platform :ios
+
+platform :ios do
+
+  ENV['CURRENT_CONFIGURATION']    = 'Release'
+  ENV['CURRENT_SCHEME']           = 'FlutterHybridDemo'
+
+  before_all do
+    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+    cocoapods
+  end
+
+  desc "Runs all the tests"
+  lane :test do
+    scan
+  end
+
+  desc "Submit a new Beta Build to Apple TestFlight"
+  desc "This will also make sure the profile is up to date"
+  lane :beta do|options|
+    scheme_name = options[:scheme] || ENV['CURRENT_SCHEME']
+    configuration = options[:configuration] || ENV['CURRENT_CONFIGURATION']
+    project_directory = File.expand_path("..", Dir.pwd)
+    xcodeproj_path = "#{project_directory}/#{scheme_name}.xcodeproj"
+    info_plist_path = "#{project_directory}/#{scheme_name}/Info.plist"
+
+    #构造生成的文件的存储路径
+    version = get_info_plist_value(path: info_plist_path, key: "CFBundleShortVersionString")
+    build = get_info_plist_value(path: info_plist_path, key: "CFBundleVersion")
+    output_directory = "#{project_directory}/build"
+    ipa_name = "#{scheme_name}_#{configuration}_#{version}_#{build}_#{Time.now.strftime('%Y%m%d%H%M%S')}.ipa"
+
+    # 打包
+    gym(scheme: scheme_name, clean: true, export_method: 'enterprise', configuration: configuration, output_directory: output_directory, output_name: ipa_name)
+  end
+
+  # You can define as many lanes as you want
+
+  after_all do |lane|
+    # This block is called, only if the executed lane was successful
+
+    # slack(
+    #   message: "Successfully deployed new App Update."
+    # )
+  end
+
+  error do |lane, exception|
+    # slack(
+    #   message: exception.message,
+    #   success: false
+    # )
+  end
+end
